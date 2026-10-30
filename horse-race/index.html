@@ -14,6 +14,34 @@ input{font:inherit;width:100%;padding:10px;border:1px solid #967ba7;border-radiu
 /* Shared mini-game result frame and pixel-edged controls. */
 #result:not(:empty){background:#201c34;border-left:4px solid #f2cb7d;padding:12px;box-shadow:3px 3px 0 #111022}
 #go{box-shadow:4px 4px 0 #111122}
+
+/* Mobile race layout repair */
+.track{min-height:0}
+#lanes{min-height:0}
+#amounts button{min-width:58px}
+@media(max-width:730px){
+ .wrap{padding:10px}
+ header{gap:8px}
+ header h1{font-size:clamp(20px,5vw,27px)}
+ header .money{font-size:18px}
+ .bar{gap:8px;font-size:13px}
+ .entry{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+ .entry>div{min-width:0}
+ .entry input{min-width:0}
+ .entry button{grid-column:1/-1}
+ .track{width:100%;min-height:0}
+ .lane{height:59px}
+ .tag{width:70px;padding:5px;font-size:10px}
+ .horse{top:10px}
+ .horse .sprite{width:44px;height:30px}
+ .horse small{font-size:10px}
+ .finish{right:6px;width:10px;background-size:10px 10px}
+ .cols{grid-template-columns:minmax(0,1fr)}
+ .panel{padding:12px}
+ .choices{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .choice{min-width:0}
+ .primary{font-size:15px;padding:13px}
+}
 </style><div class="wrap"><header><div><h1>👻 대저택 유령 경마장</h1><span class="muted">호박이 굴러가도 경주는 계속된다!</span></div><div>보유 코인 <span id="coins" class="money"></span></div></header><div class="bar"><span id="round">🏇 1회차</span><span id="phase">베팅 접수 중</span><span id="timer">⏱ 20초 경주</span></div><section class="panel"><div class="entry"><div><label for="nickname">참가자 닉네임</label><input id="nickname" maxlength="40" placeholder="닉네임 입력"></div><div><label for="manualCoins">현재 보유 코인</label><input id="manualCoins" type="number" min="0" max="100000000" step="1" inputmode="numeric" placeholder="코인 직접 입력"></div><button id="applyCoins">잔액 적용</button></div><div id="entryNotice" class="muted">다른 대저택 게임에서 획득한 코인을 직접 입력해 주세요. 경주 중에는 변경할 수 없습니다.</div></section><div class="cols"><main><div class="track"><div class="scene">🌙 🦇 ✨ 대저택의 으스스한 경주로 ✨ 🦇 🌙</div><div id="lanes"></div><div class="finish"></div></div><section class="panel"><h2>🎟 베팅하기</h2><div id="choices" class="choices"></div><p>베팅 금액 (커뮤니티 체험 코인)</p><div class="betrow" id="amounts"></div><div id="preview" class="preview" aria-live="polite"></div><button class="primary" id="go">베팅하고 경주 시작!</button><p id="result" class="result"></p></section></main><aside><section class="panel"><h2>🏆 실시간 순위</h2><div id="rank"></div></section><section class="panel"><h2>📢 중계석</h2><div id="log" class="log">이번 경주의 주인공은 누구일까요?</div></section><section class="panel"><h2>📋 규칙</h2><p class="muted">말을 한 마리 선택하고 코인을 건 뒤 20초간 경주를 관전하세요. 적중 시 베팅액×배당률만큼 획득하고 실패 시 같은 금액을 잃습니다. 최대 손실을 감당할 코인이 있어야 베팅할 수 있습니다. </p></section></aside></div><p class="foot">닉네임·코인 직접 입력 방식 · 입력값과 경주 결과는 이 브라우저에 저장되며 다른 게임과 자동 연동되지 않습니다</p></div><script>
 const H=[['유령마','👻','🐎',.35,2],['박쥐마','🦇','🐎',.25,3],['호박마','🎃','🐎',.18,4],['해골마','💀','🐎',.12,6],['저주마','🔥','🐎',.07,10],['양초마','🕯️','🐎',.03,20]];
 let coins=Number(localStorage.getItem('ghostRaceCoins')??0),round=1,horse=0,amount=20,active=false,progress=H.map(()=>0),winner=0,interval;
