@@ -24,6 +24,10 @@ footer{margin-top:18px;color:#a4b1b0;font-size:11px;line-height:1.6;text-align:c
 .reel{border-radius:0}.reel.win{outline:3px solid #f0bf6d;outline-offset:-3px}
 .spinbtn{border-radius:2px}
 @media(max-width:520px){.pixels-row .pixel-symbol{width:22px;height:22px}}
+
+/* Shared mini-game finish treatment: flat square edges, restrained pixel shadow. */
+.spinbtn{box-shadow:0 5px 0 #98653c,3px 8px 0 #10171c}
+.message{padding:7px 8px 0;text-shadow:2px 2px 0 #17242c}
 </style></head><body><div class="wrap">
 <header class="mast"><div class="identity"><div class="mark">777</div><div><div class="eyebrow">THE MANSION / ARCADE 02</div><h1>저주받은 슬롯머신</h1></div></div><div class="wallet">보유 코인 <strong><span id="wallet">0</span> C</strong></div></header>
 <div class="layout"><main class="machine"><div class="banner"><span>LUCK TEST / THREE REELS</span><span id="round">ROUND 01</span></div><div class="marquee"><div class="machine-title">LUCKY? 777</div><div class="machine-sub">SLOT MACHINE</div></div><div class="window"><div class="reels" id="reels"><div class="reel"><span class="symbol s7">7</span></div><div class="reel"><span class="symbol star">★</span></div><div class="reel"><span class="symbol diamond">◆</span></div></div><div id="message" class="message" aria-live="polite">베팅 금액을 고르고 SPIN!</div><div id="detail" class="subtitle">같은 그림이 나올수록 높은 보상</div></div><div class="controls"><div class="controlheading">BET / 베팅 금액</div><div id="bets" class="bets"></div><div class="betinfo">선택한 베팅 <b id="betdisplay">20 C</b></div><button id="spin" class="spinbtn">SPIN / 돌리기</button></div></main>
