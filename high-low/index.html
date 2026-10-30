@@ -44,8 +44,14 @@ footer{display:flex;justify-content:space-between;gap:18px;align-items:flex-star
 button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #e0a95a;outline-offset:2px}
 @media(max-width:700px){.wrap{padding:11px 9px 25px}.scoreboard .metric{padding:10px}.metric small{font-size:10px}.arena{padding:22px 12px 16px}.dock{grid-template-columns:1fr}.ledger{border-left:0;border-top:1px solid #bdbeb5}.account,.ledger{padding:15px}.playingcard{width:115px;height:162px}.arena-head{max-width:365px}.masthead{padding-bottom:13px}footer{display:block}footer .footnote{text-align:left;margin-top:8px}}
 @media(max-width:380px){.entry{flex-wrap:wrap}.entry .field{min-width:43%}.entry button{width:100%}.cards{gap:14px}.playingcard{width:103px;height:150px}.vs{font-size:20px}.scoreboard .metric{padding:8px}.bet{min-width:54px;padding:9px}}
+
+/* Pixel touches only: handmade card-back insignia and a tiny coin. */
+.playingcard.back{background:#40505a;border:5px solid #e4ddc9;box-shadow:inset 0 0 0 4px #a38673,6px 7px 0 #172b26}
+.playingcard.back:after{content:none}
+.card-back-pixel{width:65%;max-width:90px;height:auto;image-rendering:pixelated;filter:drop-shadow(3px 3px 0 #1c292c66)}
+.coinpix{position:relative;display:inline-block;width:15px;height:15px;background:#f0bc66;border:3px solid #8e622f;box-shadow:0 -3px 0 #d79b4b,0 3px 0 #d79b4b,3px 0 0 #d79b4b,-3px 0 0 #d79b4b;margin:0 7px 0 4px;vertical-align:-2px}
 </style></head><body><div class="wrap">
-<header class="masthead"><div class="identity"><div class="logo" aria-hidden="true">H/L</div><div><div class="eyebrow">THE MANSION / CARD ROOM 01</div><h1>죽음의 카드</h1></div></div><div class="wallet">보유 코인 <div><strong id="wallet">0</strong> C</div></div></header>
+<header class="masthead"><div class="identity"><div class="logo" aria-hidden="true">H/L</div><div><div class="eyebrow">THE MANSION / CARD ROOM 01</div><h1>죽음의 카드</h1></div></div><div class="wallet"><span class="coinpix" aria-hidden="true"></span>보유 코인 <div><strong id="wallet">0</strong> C</div></div></header>
 <main class="game">
 <div class="scoreboard">
 <div class="metric"><small>이번 판 베팅</small><strong id="bet">0 C</strong></div>
@@ -75,7 +81,31 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid
 const $=s=>document.getElementById(s);
 const SUITS=['♠','♥','♦','♣'];let balance=Number(localStorage.getItem('deathCardCoins')??0),stake=20,deck=[],current=null,pot=0,streak=0,phase='setup',entries=[],reveal=null,revealing=false;
 function save(){localStorage.setItem('deathCardCoins',String(balance));$('wallet').textContent=balance.toLocaleString()}
-function cardNode(card,back=false){if(back||!card)return '<span class="rank">☠</span>';return '<span class="corner">'+card.label+card.suit+'</span><span class="rank">'+card.label+'</span><span class="suit">'+card.suit+'</span>'}
+
+const BACK_PIXELS=[
+".....222.....",
+"...221122...",
+"..21111112..",
+".2111111112.",
+".2112212212.",
+"211112121112",
+"211111111112",
+"211111111112",
+".2111111112.",
+"..21122112..",
+"...211112...",
+"...221122...",
+".....22......"
+];
+function cardBackPixel(){
+ let squares=[];
+ for(let y=0;y<BACK_PIXELS.length;y++)for(let x=0;x<BACK_PIXELS[y].length;x++){
+  let ch=BACK_PIXELS[y][x];if(ch!=='.')squares.push('<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="'+(ch==='2'?'#c8a67b':'#ead9b4')+'"/>');
+ }
+ return '<svg class="card-back-pixel" viewBox="0 0 13 13" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">'+squares.join('')+'</svg>';
+}
+
+function cardNode(card,back=false){if(back||!card)return cardBackPixel();return '<span class="corner">'+card.label+card.suit+'</span><span class="rank">'+card.label+'</span><span class="suit">'+card.suit+'</span>'}
 function renderCard(id,c,back=false){let el=$(id);el.className='playingcard'+(back?' back':c&&(['♥','♦'].includes(c.suit))?' red':'');el.innerHTML=cardNode(c,back)}
 function makeDeck(){let a=[];for(let rank=2;rank<=14;rank++)for(const suit of SUITS)a.push({rank,label:rank===14?'A':rank===13?'K':rank===12?'Q':rank===11?'J':String(rank),suit});for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function render(){save();if(phase==='finished')$('manualBalance').value=balance;$('applyBalance').disabled=phase==='playing';$('manualBalance').disabled=phase==='playing';$('nickname').disabled=phase==='playing';$('stage').textContent=phase==='playing'?'연속 적중':phase==='finished'?'게임 종료':'도전 대기';$('deckcount').textContent='남은 카드 '+deck.length+'장';$('bet').textContent=(phase==='setup'?stake:stake).toLocaleString()+' C';$('pot').textContent=pot.toLocaleString()+' C';$('streak').textContent=streak+'회';$('multi').textContent=(streak?Math.pow(2,streak):1).toLocaleString()+'배';$('setup').classList.toggle('hide',phase!=='setup');$('playing').classList.toggle('hide',phase!=='playing');$('finished').classList.toggle('hide',phase!=='finished');renderCard('current',current,!current);renderCard('next',reveal,!reveal);$('higher').disabled=deck.length===0||revealing;$('lower').disabled=deck.length===0||revealing;$('cashout').disabled=pot===0||revealing;$('start').disabled=balance<stake;$('stakes').innerHTML=[5,10,20,50,100].map(x=>'<button class="bet '+(stake===x?'active':'')+'" data-stake="'+x+'" '+(balance<x?'disabled':'')+'>'+x+' C</button>').join('');document.querySelectorAll('[data-stake]').forEach(b=>b.onclick=()=>{stake=Number(b.dataset.stake);render()});$('history').innerHTML=entries.length?entries.slice().reverse().map(e=>'<div>'+e+'</div>').join(''):'아직 뒤집힌 카드가 없습니다.';}
