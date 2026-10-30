@@ -55,6 +55,11 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid
 .btn{border-radius:0;box-shadow:3px 3px 0 #18271f}
 .decision .btn{box-shadow:4px 4px 0 #1b3128}
 .result{border-top:2px solid #688273;padding-top:12px;text-shadow:2px 2px 0 #172a23}
+
+/* Custom card back: original pumpkin pixel art supplied by the organizer. */
+.playingcard.back{background:#121a17;border:5px double #e6c98d;box-shadow:inset 0 0 0 4px #314439,6px 7px 0 #172b26}
+.playingcard.back:after{content:none}
+.card-back-pumpkin{display:block;width:94%;max-width:135px;aspect-ratio:1;object-fit:contain;image-rendering:pixelated}
 </style></head><body><div class="wrap">
 <header class="masthead"><div class="identity"><div class="logo" aria-hidden="true">H/L</div><div><div class="eyebrow">THE MANSION / CARD ROOM 01</div><h1>죽음의 카드</h1></div></div><div class="wallet"><span class="coinpix" aria-hidden="true"></span>보유 코인 <div><strong id="wallet">0</strong> C</div></div></header>
 <main class="game">
@@ -87,29 +92,7 @@ const $=s=>document.getElementById(s);
 const SUITS=['♠','♥','♦','♣'];let balance=Number(localStorage.getItem('deathCardCoins')??0),stake=20,deck=[],current=null,pot=0,streak=0,phase='setup',entries=[],reveal=null,revealing=false;
 function save(){localStorage.setItem('deathCardCoins',String(balance));$('wallet').textContent=balance.toLocaleString()}
 
-const BACK_PIXELS=[
-".....222.....",
-"...221122...",
-"..21111112..",
-".2111111112.",
-".2112212212.",
-"211112121112",
-"211111111112",
-"211111111112",
-".2111111112.",
-"..21122112..",
-"...211112...",
-"...221122...",
-".....22......"
-];
-function cardBackPixel(){
- let squares=[];
- for(let y=0;y<BACK_PIXELS.length;y++)for(let x=0;x<BACK_PIXELS[y].length;x++){
-  let ch=BACK_PIXELS[y][x];if(ch!=='.')squares.push('<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="'+(ch==='2'?'#c8a67b':'#ead9b4')+'"/>');
- }
- return '<svg class="card-back-pixel" viewBox="0 0 13 13" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">'+squares.join('')+'</svg>';
-}
-
+function cardBackPixel(){return '<img class="card-back-pumpkin" alt="호박 도트 카드 뒷면" src="data:image/png;base64,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">';}
 function cardNode(card,back=false){if(back||!card)return cardBackPixel();return '<span class="corner">'+card.label+card.suit+'</span><span class="rank">'+card.label+'</span><span class="suit">'+card.suit+'</span>'}
 function renderCard(id,c,back=false){let el=$(id);el.className='playingcard'+(back?' back':c&&(['♥','♦'].includes(c.suit))?' red':'');el.innerHTML=cardNode(c,back)}
 function makeDeck(){let a=[];for(let rank=2;rank<=14;rank++)for(const suit of SUITS)a.push({rank,label:rank===14?'A':rank===13?'K':rank===12?'Q':rank===11?'J':String(rank),suit});for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
