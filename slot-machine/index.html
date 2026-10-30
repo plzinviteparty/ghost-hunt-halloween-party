@@ -28,6 +28,11 @@ footer{margin-top:18px;color:#a4b1b0;font-size:11px;line-height:1.6;text-align:c
 /* Shared mini-game finish treatment: flat square edges, restrained pixel shadow. */
 .spinbtn{box-shadow:0 5px 0 #98653c,3px 8px 0 #10171c}
 .message{padding:7px 8px 0;text-shadow:2px 2px 0 #17242c}
+
+/* Precisely isolated six original symbols: 64px cells, no neighboring artwork. */
+.slot-art{display:block;flex:none;width:min(86%,96px);height:auto;aspect-ratio:1;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYAAAABACAMAAAAkhlCNAAAAYFBMVEX+8gL/AADa2dL/qQAAY6v73lT/fAALCQgCAgL/qgAZGRiwkxYAZrBXV1cFBQWPeyahoaFsAABcUhu3AABdTxFQAAAALk8AZrD+0BQAAAAAGi0CAgP+2iknJyfk5OT+6FI5oQ1DAAAAIHRSTlP4//7+/fv92aevXM2e/yT//87gzr29/0a/AP/+//7//1APyuQAAAQ5SURBVHja7dxhe5sgEABgm2K0zmZtum6rifX//8siGEE48DBRibn7sCXU5MlzrwgcJsnXBuN0Oh3GDsgD3ozHbJ81IQACeOggAAIgAAoCIIBZpyRzziIIgAAWACiKggDWBJicwTzPf4ngD3LK9vIA/IVnEVN6AWOsJIA1AaqKANYD4Od/VfF/CGAtgEoEARDAygBt6pIkmWYwGUBcgATAxi9CMwKc+uyfewT0iysVBLA4QH/6X/oAe3SAScPAFQCVEQRAAA8EYKV/0wQEEDeAHIDbg+Q4jEboqnBpmioAWZMbHX9hgK2OxHMBdGd/0zRhnQDM/pY7QVwAZekDKEsCmBnAk/6t9oHbA8gdMJn8ZrfbAQbONyKANQFKx/g7GInLDQPwrGSnS6hHXzL7HQBwwOFWABUiJgDUKtCvKWp3RAtw6lMvs78Dsm86uOo/vk5AAPMAVMgIBshULADwgggHAP+AeWZHm0cJMGhWh0YMIBLWqMCdwoe6ft25w/8Oz4hwD8KZHHSHfaQPq1nLoFl2GAUYTksZ+4sGCLgIrQLwNBZRAlQBwdAX/rQNDUA8T/0K/G/8g3+7QxgUBIADaOyIGaBL5X6/T7zBD8iGU0kTgB/Unmz8PyDt6o3mBmgeFqBbB8Dn/dwAfA7TGBcfK2CD0exfDF5dhBgAfRzeLEDjz/+aAC2BvxQhDfaQg2y2v2UYI4CXYGsA5jrAHYm+qgteBQQAmCk/qrVUSgBzA6QWQLocALT4wo8Bcj/x8/39/ePjwwLgbfwv/IAiZoAss+c+A4A0hQsTtwKwm/GzILUi6GrRgxj/vouXQVWUgjYCggDq+red/mYwc8zE+tjsBMjsq7lo7SxFuAH23lLEVgCs4XdhgBe7Dbz+bBfAyD9wveFNowCeZz4A78Bs4vgA3OsA9J4wkP0pe5HXAgC5AupyowDfVwPYvSMWAGg7hrlaYwYASYDpZ2QAYB9grlZ/DcgsgaI3sTSAt8t8Scv5oCkEAJz/4wG6eb9aFKC25vlE9Q+PPvn/+QuPx6P7zrhbAuhlCFF9Xg9guARYEODLuDcU8cLSTLS4CYKFbcpbPWB9gKf7BWjzHQ5wPl8LoG0AAwCiFQ/gWAF7AYqiaLd8Zb4/2w3gXD1vt4b5AYfbA2hjLmPs8jVVbSDmj//dMwD6xiw1AMuz/6TqQ30nyAMA0F2H2Zd/pn1fjKGSGCkAdPrHB9CHDqC33heANgQ/3wWAiqk3AkUH4Bl/RwFk9ocZlQbon33sKUO/J7wRAO8EiAAI4HEAnkMBMkfZs78jdGYAxkKGXrMW1BoMqqHYWtAw5Zc1GVCkfh2/x85XhI4f4IroANIpxbjZAJxHPQIAeBVaAOBpZA3mBpBrX/Bn3mRzewAqGWv8ZhxwCRKdwNwRc7CY2X4DWDx7wjcBuKdfH0ddgkQnMADS5QCcAwCPH/P9zn6CKczhAAAAAElFTkSuQmCC");background-repeat:no-repeat;background-size:600% 100%;image-rendering:pixelated}
+.slot-art.s-star{background-position:0% 0}.slot-art.s-diamond{background-position:20% 0}.slot-art.s-spade{background-position:40% 0}.slot-art.s-moon{background-position:60% 0}.slot-art.s-skull{background-position:80% 0}.slot-art.s-s7{background-position:100% 0}
+.pixels-row .slot-art{width:25px;height:25px}
 </style></head><body><div class="wrap">
 <header class="mast"><div class="identity"><div class="mark">777</div><div><div class="eyebrow">THE MANSION / ARCADE 02</div><h1>저주받은 슬롯머신</h1></div></div><div class="wallet">보유 코인 <strong><span id="wallet">0</span> C</strong></div></header>
 <div class="layout"><main class="machine"><div class="banner"><span>LUCK TEST / THREE REELS</span><span id="round">ROUND 01</span></div><div class="marquee"><div class="machine-title">LUCKY? 777</div><div class="machine-sub">SLOT MACHINE</div></div><div class="window"><div class="reels" id="reels"><div class="reel"><span class="symbol s7">7</span></div><div class="reel"><span class="symbol star">★</span></div><div class="reel"><span class="symbol diamond">◆</span></div></div><div id="message" class="message" aria-live="polite">베팅 금액을 고르고 SPIN!</div><div id="detail" class="subtitle">같은 그림이 나올수록 높은 보상</div></div><div class="controls"><div class="controlheading">BET / 베팅 금액</div><div id="bets" class="bets"></div><div class="betinfo">선택한 베팅 <b id="betdisplay">20 C</b></div><button id="spin" class="spinbtn">SPIN / 돌리기</button></div></main>
@@ -42,105 +47,8 @@ let coins=Number(localStorage.getItem('mansionSlotCoins')??0),name=localStorage.
 if(!Number.isFinite(coins)||coins<0)coins=0;
 $('nickname').value=name;$('manualCoins').value=coins;
 
-const PIXEL_PALETTES={
- s7:['#c74844','#f2a273'],
- star:['#d9a72b','#f9dc75'],
- diamond:['#539cbc','#91dcef'],
- spade:['#284c59','#6d98a0'],
- moon:['#6b769d','#b6c4e1'],
- skull:['#6c7076','#b9bec0']
-};
-const PIXEL_GRIDS={
- s7:[
- "11111111111",
- "11111111111",
- "........111",
- ".......111.",
- "......111..",
- ".....111...",
- "....111....",
- "...111.....",
- "...111.....",
- "...111.....",
- "...111....."
- ],
- star:[
- ".....2.....",
- "....222....",
- "....111....",
- "11111111111",
- ".111111111.",
- "..2111112..",
- "...11111...",
- "..111.111..",
- ".111...111.",
- "11.......11",
- "..........."
- ],
- diamond:[
- ".....2.....",
- "....222....",
- "...21112...",
- "..2111112..",
- ".211111112.",
- "21111111112",
- ".211111112.",
- "..2111112..",
- "...21112...",
- "....222....",
- ".....2....."
- ],
- spade:[
- ".....2.....",
- "....222....",
- "...21112...",
- "..2111112..",
- ".211111112.",
- "21111111112",
- "11111111111",
- ".111111111.",
- "...11111...",
- "....111....",
- "...11111..."
- ],
- moon:[
- "....1111...",
- "..111111...",
- ".111111....",
- "111111.....",
- "11111......",
- "1111.......",
- "11111......",
- ".11111.....",
- "..111111...",
- "...111111..",
- "....1111..."
- ],
- skull:[
- "...22222...",
- "..2111112..",
- ".211111112.",
- ".211111112.",
- ".211111112.",
- ".21.11.112.",
- ".21.11.112.",
- ".211111112.",
- "..2111112..",
- "...11.11...",
- "...11.11..."
- ]
-};
-function pixelHTML(id){
- const pal=PIXEL_PALETTES[id],grid=PIXEL_GRIDS[id];
- const squares=[];
- for(let y=0;y<grid.length;y++)for(let x=0;x<grid[y].length;x++){
-  let p=grid[y][x];if(p==='.')continue;
-  squares.push('<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="'+pal[p==='2'?1:0]+'"/>');
- }
- return '<svg class="pixel-symbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 11" aria-hidden="true" shape-rendering="crispEdges">'+squares.join('')+'</svg>';
-}
-document.querySelectorAll('[data-pixels]').forEach(el=>{el.innerHTML=pixelHTML(el.dataset.pixels).repeat(3);el.setAttribute('aria-label',el.dataset.pixels+' 세 개')});
-
+function pixelHTML(id){return '<span class="slot-art s-'+id+'" role="img" aria-label="'+id+'"></span>'}
+document.querySelectorAll('[data-pixels]').forEach(el=>{el.innerHTML=pixelHTML(el.dataset.pixels).repeat(3)})
 function pickSymbol(){let n=Math.random()*100;for(const s of SYMBOLS){n-=s.weight;if(n<0)return s}return SYMBOLS[SYMBOLS.length-1]}
 function displaySymbols(syms,win=false){$('reels').innerHTML=syms.map(s=>'<div class="reel'+(win?' win':'')+'">'+pixelHTML(s.id)+'</div>').join('')}
 function payoutOf(syms){const ids=syms.map(s=>s.id),counts=Object.values(ids.reduce((acc,id)=>(acc[id]=(acc[id]||0)+1,acc),{}));if(counts.includes(3)){if(ids[0]==='s7')return 50;if(ids[0]==='star')return 20;if(ids[0]==='diamond')return 10;return 8}if(counts.includes(2))return 1;return 0}
