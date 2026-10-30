@@ -42,41 +42,14 @@ input{font:inherit;width:100%;padding:10px;border:1px solid #967ba7;border-radiu
  .choice{min-width:0}
  .primary{font-size:15px;padding:13px}
 }
-</style><div class="wrap"><header><div><h1>👻 대저택 유령 경마장</h1><span class="muted">호박이 굴러가도 경주는 계속된다!</span></div><div>보유 코인 <span id="coins" class="money"></span></div></header><div class="bar"><span id="round">🏇 1회차</span><span id="phase">베팅 접수 중</span><span id="timer">⏱ 20초 경주</span></div><section class="panel"><div class="entry"><div><label for="nickname">참가자 닉네임</label><input id="nickname" maxlength="40" placeholder="닉네임 입력"></div><div><label for="manualCoins">현재 보유 코인</label><input id="manualCoins" type="number" min="0" max="100000000" step="1" inputmode="numeric" placeholder="코인 직접 입력"></div><button id="applyCoins">잔액 적용</button></div><div id="entryNotice" class="muted">다른 대저택 게임에서 획득한 코인을 직접 입력해 주세요. 경주 중에는 변경할 수 없습니다.</div></section><div class="cols"><main><div class="track"><div class="scene">🌙 🦇 ✨ 대저택의 으스스한 경주로 ✨ 🦇 🌙</div><div id="lanes"></div><div class="finish"></div></div><section class="panel"><h2>🎟 베팅하기</h2><div id="choices" class="choices"></div><p>베팅 금액 (커뮤니티 체험 코인)</p><div class="betrow" id="amounts"></div><div id="preview" class="preview" aria-live="polite"></div><button class="primary" id="go">베팅하고 경주 시작!</button><p id="result" class="result"></p></section></main><aside><section class="panel"><h2>🏆 실시간 순위</h2><div id="rank"></div></section><section class="panel"><h2>📢 중계석</h2><div id="log" class="log">이번 경주의 주인공은 누구일까요?</div></section><section class="panel"><h2>📋 규칙</h2><p class="muted">말을 한 마리 선택하고 코인을 건 뒤 20초간 경주를 관전하세요. 적중 시 베팅액×배당률만큼 획득하고 실패 시 같은 금액을 잃습니다. 최대 손실을 감당할 코인이 있어야 베팅할 수 있습니다. </p></section></aside></div><p class="foot">닉네임·코인 직접 입력 방식 · 입력값과 경주 결과는 이 브라우저에 저장되며 다른 게임과 자동 연동되지 않습니다</p></div><script>
+</style><link rel="stylesheet" href="./user-horses.css?v=1"><div class="wrap"><header><div><h1>👻 대저택 유령 경마장</h1><span class="muted">호박이 굴러가도 경주는 계속된다!</span></div><div>보유 코인 <span id="coins" class="money"></span></div></header><div class="bar"><span id="round">🏇 1회차</span><span id="phase">베팅 접수 중</span><span id="timer">⏱ 20초 경주</span></div><section class="panel"><div class="entry"><div><label for="nickname">참가자 닉네임</label><input id="nickname" maxlength="40" placeholder="닉네임 입력"></div><div><label for="manualCoins">현재 보유 코인</label><input id="manualCoins" type="number" min="0" max="100000000" step="1" inputmode="numeric" placeholder="코인 직접 입력"></div><button id="applyCoins">잔액 적용</button></div><div id="entryNotice" class="muted">다른 대저택 게임에서 획득한 코인을 직접 입력해 주세요. 경주 중에는 변경할 수 없습니다.</div></section><div class="cols"><main><div class="track"><div class="scene">🌙 🦇 ✨ 대저택의 으스스한 경주로 ✨ 🦇 🌙</div><div id="lanes"></div><div class="finish"></div></div><section class="panel"><h2>🎟 베팅하기</h2><div id="choices" class="choices"></div><p>베팅 금액 (커뮤니티 체험 코인)</p><div class="betrow" id="amounts"></div><div id="preview" class="preview" aria-live="polite"></div><button class="primary" id="go">베팅하고 경주 시작!</button><p id="result" class="result"></p></section></main><aside><section class="panel"><h2>🏆 실시간 순위</h2><div id="rank"></div></section><section class="panel"><h2>📢 중계석</h2><div id="log" class="log">이번 경주의 주인공은 누구일까요?</div></section><section class="panel"><h2>📋 규칙</h2><p class="muted">말을 한 마리 선택하고 코인을 건 뒤 20초간 경주를 관전하세요. 적중 시 베팅액×배당률만큼 획득하고 실패 시 같은 금액을 잃습니다. 최대 손실을 감당할 코인이 있어야 베팅할 수 있습니다. </p></section></aside></div><p class="foot">닉네임·코인 직접 입력 방식 · 입력값과 경주 결과는 이 브라우저에 저장되며 다른 게임과 자동 연동되지 않습니다</p></div><script>
 const H=[['유령마','👻','🐎',.35,2],['박쥐마','🦇','🐎',.25,3],['호박마','🎃','🐎',.18,4],['해골마','💀','🐎',.12,6],['저주마','🔥','🐎',.07,10],['양초마','🕯️','🐎',.03,20]];
 let coins=Number(localStorage.getItem('ghostRaceCoins')??0),round=1,horse=0,amount=20,active=false,progress=H.map(()=>0),winner=0,interval;
 const $=id=>document.getElementById(id);
 function save(){localStorage.setItem('ghostRaceCoins',coins);$('coins').textContent=coins.toLocaleString()+' C'}
 function drawControls(){save();$('applyCoins').disabled=active;$('manualCoins').disabled=active;$('nickname').disabled=active;const risk=amount*H[horse][4];$('preview').innerHTML='선택: '+H[horse][1]+' '+H[horse][0]+' · '+H[horse][4]+'배<br><strong>승리 +'+risk.toLocaleString()+' C / 패배 -'+risk.toLocaleString()+' C</strong><br>'+(coins<risk?'<span style="color:#ff8b90">보유 코인이 최대 손실보다 적어 베팅할 수 없습니다.</span>':'<span class="muted">최대 손실 '+risk.toLocaleString()+'코인 확보됨</span>');$('round').textContent='🏇 '+round+'회차';$('choices').innerHTML=H.map((h,i)=>'<button class="choice '+(horse===i?'selected':'')+'" data-h="'+i+'" '+(active?'disabled':'')+'>'+h[1]+' '+(i+1)+'번 '+h[0]+'<br><small>'+h[4]+'배</small></button>').join('');document.querySelectorAll('[data-h]').forEach(b=>b.onclick=()=>{horse=+b.dataset.h;drawControls()});$('amounts').innerHTML=[5,10,20,50,100].map(x=>'<button data-a="'+x+'" class="'+(x===amount?'selected':'')+'" '+(active?'disabled':'')+'>'+x+' C</button>').join('');document.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{amount=+b.dataset.a;drawControls()});$('go').disabled=active||coins<risk;$('go').textContent=active?'경주 중...':'베팅하고 경주 시작!'}
-function drawRace(){let w=$('lanes').clientWidth;H.forEach((h,i)=>{let p=document.querySelector('#runner'+i);p.style.left=(Math.max(80,Math.min(w-72,105+(w-205)*progress[i])))+'px'});let ranks=H.map((h,i)=>({h,i,p:progress[i]})).sort((a,b)=>b.p-a.p);$('rank').innerHTML=ranks.map((o,j)=>'<div class="rank"><span>'+(j+1)+'위 '+o.h[1]+' '+o.h[0]+'</span><span>'+Math.round(o.p*100)+'%</span></div>').join('')}
-const HORSE_PIXELS=[
-".................DD.....",
-".................DHHH...",
-"................HHHHHE..",
-"....MMM.........HHHHHH..",
-"...MBBBBBBBBBBBBBHHHHH.",
-"...BBBBBBBBBBBBBBHHHH..",
-"..BBBBBBBBBBBBBBBHH....",
-".BBBBBBBBBBBBBBBBH.....",
-".BB.BBBBBBBBBBBB.......",
-".B...BBBBBBBBBB........",
-".....LL....LL..........",
-".....LL....LL..........",
-".....LL....LL..........",
-".....LL....LL.........."
-];
-const HORSE_COLORS=['#d4d0d0','#b6a3c8','#d6a06b','#b4c1c7','#b18d9d','#d8c994'];
-function horsePixel(i){
- const main=HORSE_COLORS[i],parts=[];
- for(let y=0;y<HORSE_PIXELS.length;y++)for(let x=0;x<HORSE_PIXELS[y].length;x++){
- const p=HORSE_PIXELS[y][x];if(p==='.')continue;
- const fill=p==='M'?'#514356':p==='D'?'#3c3a46':p==='E'?'#181b25':p==='L'?'#786575':main;
- parts.push('<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="'+fill+'"/>');
- }
- return '<svg class="sprite" viewBox="0 0 23 14" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">'+parts.join('')+'</svg>';
-}
-
-$('lanes').innerHTML=H.map((h,i)=>'<div class="lane"><div class="tag">'+(i+1)+'번 '+h[1]+'<br>'+h[0]+'</div><div class="horse" id="runner'+i+'">'+horsePixel(i)+'<small>'+h[1]+'</small></div></div>').join('');
+function drawRace(){let w=$('lanes').clientWidth;H.forEach((h,i)=>{let p=document.querySelector('#runner'+i);p.style.left=(Math.max(w<450?73:105,Math.min(w-(w<450?82:108),(w<450?75:105)+(w-(w<450?160:215))*progress[i])))+'px'});let ranks=H.map((h,i)=>({h,i,p:progress[i]})).sort((a,b)=>b.p-a.p);$('rank').innerHTML=ranks.map((o,j)=>'<div class="rank"><span>'+(j+1)+'위 '+o.h[1]+' '+o.h[0]+'</span><span>'+Math.round(o.p*100)+'%</span></div>').join('')}
+$('lanes').innerHTML=H.map((h,i)=>'<div class="lane"><div class="tag">'+(i+1)+'번 '+h[1]+'<br>'+h[0]+'</div><div class="horse" id="runner'+i+'"><span class="sprite h'+i+'" aria-hidden="true"></span><small>'+h[1]+'</small></div></div>').join('');
 function log(t){$('log').innerHTML=t+'<hr style="border-color:#534461">'+$('log').innerHTML.slice(0,480)}
 
 function chooseWinner(){let r=Math.random();for(let i=0;i<H.length;i++){r-=H[i][3];if(r<=0)return i}return 5}
