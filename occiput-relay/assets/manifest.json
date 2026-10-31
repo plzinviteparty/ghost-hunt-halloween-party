@@ -1,0 +1,108 @@
+{
+  "sprites": {
+    "kim": {
+      "down": "assets/kim-down.png",
+      "left": "assets/kim-left.png",
+      "right": "assets/kim-right.png",
+      "up": "assets/kim-up.png"
+    },
+    "ode": {
+      "down": "assets/ode-down.png",
+      "right": "assets/ode-right.png",
+      "left": "assets/ode-left.png",
+      "up": "assets/ode-up.png"
+    },
+    "monsterHachi": {
+      "down": "assets/monsterHachi-down.png",
+      "left": "assets/monsterHachi-left.png",
+      "right": "assets/monsterHachi-right.png",
+      "up": "assets/monsterHachi-up.png"
+    },
+    "hachi": {
+      "down": "assets/hachi-down.png",
+      "left": "assets/hachi-left.png",
+      "right": "assets/hachi-right.png",
+      "up": "assets/hachi-up.png"
+    },
+    "usagi": {
+      "down": "assets/usagi-down.png",
+      "left": "assets/usagi-left.png",
+      "right": "assets/usagi-right.png",
+      "up": "assets/usagi-up.png"
+    },
+    "chiikawa": {
+      "down": "assets/chiikawa-down.png",
+      "left": "assets/chiikawa-left.png",
+      "right": "assets/chiikawa-right.png",
+      "up": "assets/chiikawa-up.png"
+    },
+    "player": {
+      "down": "assets/player-down.png",
+      "left": "assets/player-left.png",
+      "right": "assets/player-right.png",
+      "up": "assets/player-up.png"
+    },
+    "man": {
+      "down": "assets/man-down.png",
+      "left": "assets/man-left.png",
+      "right": "assets/man-right.png",
+      "up": "assets/man-up.png"
+    },
+    "alien": {
+      "down": "assets/alien-down.png",
+      "left": "assets/alien-left.png",
+      "right": "assets/alien-right.png",
+      "up": "assets/alien-up.png"
+    },
+    "cat": {
+      "down": "assets/cat-down.png",
+      "left": "assets/cat-left.png",
+      "right": "assets/cat-right.png",
+      "up": "assets/cat-up.png"
+    },
+    "briano": {
+      "down": "assets/briano-down.png",
+      "left": "assets/briano-left.png",
+      "right": "assets/briano-right.png",
+      "up": "assets/briano-up.png"
+    },
+    "lemming": {
+      "down": "assets/lemming-down.png",
+      "left": "assets/lemming-left.png",
+      "right": "assets/lemming-right.png",
+      "up": "assets/lemming-up.png"
+    }
+  },
+  "props": {
+    "chair": "assets/prop-chair.png",
+    "fallenChair": "assets/prop-fallenChair.png",
+    "chairPile": "assets/prop-chairPile.png",
+    "table": "assets/prop-table.png",
+    "bed": "assets/prop-bed.png",
+    "door": "assets/prop-door.png",
+    "desk": "assets/prop-desk.png",
+    "piano": "assets/prop-piano.png",
+    "mirror": "assets/prop-mirror.png",
+    "plant": "assets/prop-plant.png",
+    "lamp": "assets/prop-lamp.png",
+    "ufo": "assets/prop-ufo.png"
+  },
+  "textures": {
+    "mansion": {
+      "floor": "assets/mansion-floor.png",
+      "wall": "assets/mansion-wall.png"
+    },
+    "backroom": {
+      "floor": "assets/backroom-floor.png",
+      "wall": "assets/backroom-wall.png"
+    },
+    "ward": {
+      "floor": "assets/ward-floor.png",
+      "wall": "assets/ward-wall.png"
+    },
+    "water": {
+      "floor": "assets/water-floor.png",
+      "wall": "assets/water-wall.png"
+    }
+  }
+}
