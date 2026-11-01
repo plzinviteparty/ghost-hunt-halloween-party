@@ -83,6 +83,12 @@
       "left": "assets/changwon-uniform-left.png",
       "right": "assets/changwon-uniform-right.png",
       "up": "assets/changwon-uniform-up.png"
+    },
+    "nasol": {
+      "down": "assets/nasol-down.png",
+      "left": "assets/nasol-left.png",
+      "right": "assets/nasol-right.png",
+      "up": "assets/nasol-up.png"
     }
   },
   "props": {

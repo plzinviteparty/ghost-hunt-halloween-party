@@ -81,7 +81,7 @@ SCRIPTS.happyReveal=[T('제 몸 보여 주세요. 지금 보고 있는 거 말�
 ENDINGS.happy.text='서류를 펼쳤다. 모르는 말이 많았다. 김솔음에게 첫 줄부터 같이 읽어 달라고 했다. 오데는 의자를 끌고 와 내 옆에 앉았다.';
 
 // Optional companions: physical clues, prior actions and a single irreversible descent.
-const REQUIRED_PARTY=['kim','ode','hachi','jubin','changwon'];
+const REQUIRED_PARTY=['kim','ode','hachi','jubin','changwon','nasol'];
 ITEMS.earring=['한쪽 귀걸이','거울 아래에서 주웠다. 작은 고리가 달려 있다.'];
 ITEMS.badge=['출입증','기록철 뒷장에 끼워져 있었다. 이름은 김창원.'];
 SCRIPTS.mirror.push(F('mirrorSeen'),T('거울 아래쪽에 무언가 반짝였다. 고개를 숙였지만 식탁보에 가려 잘 보이지 않았다.'));
@@ -144,3 +144,11 @@ MAPS.pool.objects.push(O('poolReturn',5,5,'door','위로 이어진 정비 사다
 SCRIPTS.poolReturn=[R('backroom',44,24)];
 
 SCRIPTS.penLeft=[T('펜을 내려놓았다. 물 위로 떠올랐다.'),C('배수로 쪽에서 소리가 난다.', [['그대로 간다','chaseIntro'],['아직 여기서 살펴본다','leaveOptional']])];
+
+MAPS.ward.objects.push(O('nasol',4,10,'nasol','관자놀이를 누르는 여자',{hide:'nasolJoined'}),O('quietConsole',5,8,'monitor','병동 제어함'));
+SCRIPTS.nasol=[Q('wardQuiet','nasolOffer','nasolWait')];
+SCRIPTS.nasolWait=[T('여자가 벽에 기대서 관자놀이를 누르고 있었다. 말을 걸자 눈부터 찌푸렸다.'),T('목소리 좀 낮춰요. 머리 울리니까.','진나솔'),T('어디 아파요?'),T('편두통이요. 저 기계가 계속 울려서.','진나솔'),T('그녀는 제어함을 가리켰다.'),T('모르면 그냥 둬요. 환기까지 꺼 버리지 말고.','진나솔')];
+SCRIPTS.quietConsole=[T('덮개가 나사로 고정되어 있었다. 옆에 붙은 회로도를 펼쳤다.'),{puzzle:true,title:'병동 제어함',device:'lever',requires:'wrench',labels:['조명','경보음','환기'],positions:['꺼짐','낮음','정상'],answer:[1,0,2],help:'회로도 옆 메모: 휴식 시간에는 조명을 낮추고 경보음을 끈다. 환기는 정상 운전. 레버는 아래부터 꺼짐, 낮음, 정상이다.'},F('wardQuiet'),T('조명이 낮아지고 기계 소리가 멎었다. 벽 쪽에서 여자가 고개를 들었다.')];
+SCRIPTS.nasolOffer=[T('진나솔이 제어함의 눈금을 확인했다.'),T('환기는 살려 놨네요.','진나솔'),T('아까 끄지 말라고 했잖아요.'),T('말해도 못 알아듣는 사람이 많아서요.','진나솔'),C('진나솔이 벽에서 몸을 뗐다.', [['같이 나가자고 한다','nasolJoin'],['먼저 가겠다고 한다','leaveOptional']])];
+SCRIPTS.nasolJoin=[P('nasol'),F('nasolJoined'),T('진나솔이 내 뒤로 왔다.'),T('앞장서요. 길 막히면 제가 볼 테니까.','진나솔')];
+SCRIPTS.happyReveal.splice(2,0,T('문 앞에서 멈추자 진나솔이 내 어깨를 짚었다.'),T('나가서 봐요. 뒤에 아직 사람 있어요.','진나솔'));
