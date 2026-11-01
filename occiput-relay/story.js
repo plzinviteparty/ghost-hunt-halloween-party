@@ -29,7 +29,7 @@ fall:[T('버튼을 누르자 발밑에 구멍이 뚫렸다.\n나는 그대로…
 button:[T('「탈출 버튼. 인간만 누르시오.」','표지판'),T('나는 탈출 버튼을…… 눌렀다!'),T('하지만 작동하지 않았다. 왜지?'),T('그래, 나는 사실 인간이 아니었기 때문이었다.\n알고 보니 핼러윈 귀신이었던 걸까?'),T('아니, 그럴 리가 없어! 아까 외계인들이 친하게 지내고 싶다고 했다.'),T('문구 밑에 작은 글씨가 있다.\n「너는 누구지?」',''),F('buttonTried'),T('근처에 펜 하나가 동동 떠다니고 있었다.\n저 규칙…… 잘하면 수정할 수 있을 것 같다.')],
 pen:[I('pen'),F('penFound'),T('펜을 잡았다. 물속인데도 종이에 글씨가 써졌다.\n‘너는 누구지?’라는 문구를 고쳐 보자.')],
 sign:[C('펜으로 무엇을 쓸까?', [['지지 신 최강 준오 형님임.','deity'],['너는 두부지?','rewrite'],['펜을 좀 더 살펴본다','penLook']])],deity:[T('지지 신 최강 준오 형님임.'),T('표지판에 ‘분류 불가’라는 글씨가 나타났다.\n버튼은 여전히 움직이지 않았다. 다른 문장을 써 보자.','')],penLook:[T('펜 끝에 물방울이 맺히지 않는다.\n조그만 쪽지에 ‘내가 쓴 문장은 공간을 바꾼다’고 적었다.'),I('paper'),F('testedPen'),T('주머니가 젖지 않았다.\n이 펜과 쪽지는 몸이 바뀌어도 남을 것 같다.')],
-rewrite:[T('나는 신인가, 인간인가, 귀신인가…… 아니!\n펜으로 ‘너는 누구지?’에 획을 그었다.'),T('너는 두부지?','표지판'),F('tofu'),T('그렇게…… 인간이 아닌 나는 슬라임 두부가 되었다!\n말랑한 몸이 발목을 붙잡던 틈에서 빠져나왔다.',''),T('물이 빠진 배수로로 미끄러져 나왔다.\n멀리서 배고픈 하치와레가 걸어오고 있었다.'),C('도망치기 전에 손에 걸린 펜을……', [['몸 안에 넣어 챙긴다','keepPen'],['버리고 빨리 도망친다','dropPen']])],keepPen:[F('keptPen'),J('chaseIntro')],dropPen:[{op:'remove',id:'pen'},J('chaseIntro')],
+rewrite:[T('나는 신인가, 인간인가, 귀신인가…… 아니!\n펜으로 ‘너는 누구지?’에 획을 그었다.'),T('너는 두부지?','표지판'),F('tofu'),T('그렇게…… 인간이 아닌 나는 슬라임 두부가 되었다!\n말랑한 몸이 발목을 붙잡던 틈에서 빠져나왔다.',''),T('물이 빠진 배수로로 미끄러져 나왔다.\n멀리서 배고픈 하치와레가 걸어오고 있었다.'),C('도망치기 전에 손에 걸린 펜을……', [['몸 안에 넣어 챙긴다','keepPen'],['버리고 빨리 도망친다','dropPen']])],keepPen:[F('keptPen'),J('chaseIntro')],dropPen:[{op:'drop',id:'pen'},J('penLeft')],
 chaseIntro:[T('내가 알던 하치와레가 아닌 것 같은데?'),T('응, 정답!',''),T('민트색 발톱 하나가 복도 전체를 가로질렀다.\n얼굴이 나타난 것이 아니라 벽이 얼굴의 일부라는 걸 알아차렸다.',''),T('도망치지 않으면 죽는다.\n전속력으로 뛰었다.'),R('chase',3,8),T('오른쪽 끝의 불빛까지 도망치세요.\n가구는 돌아가야 합니다. 메뉴를 열면 추격도 멈춥니다.\n실패해도 자동 저장에서 다시 할 수 있습니다.','추격전'),F('chaseActive')],
 rescued:[F('chaseActive',false),T('그런데 그때 UFO가 나타나 괴물 고양이를 잡아갔다!',''),R('wreck',5,9),T('안심하기도 전에 괴물 고양이가 UFO를 박살냈다.\n박살 난 UFO 속에서 치이카와와 우사기가 꼬질한 모습으로 기어 나왔다.',''),T('요 사고뭉치 녀석, 또 UFO를 박살 내면 어떡하니!\n네 친구들도 와 있는데!','고양이의 어머니'),T('고양이는 괴물이 아니라 UFO에 타고 있던 외계인들의 가족이었다.',''),T('휴, 만나서 다행이다.\n나는 달리던 걸 멈추었다.'),T('아까의 ‘너는 두부지?’ 문구를 떠올리곤 웃었다.'),F('ufoDone'),T('잔해 사이로 익숙한 침실 문이 보였다.\n누군가 알람을 끄는 소리가 났다.')],
 family:[T('아까 쫓아와서 미안해.\n두부가 혼자 움직이길래 우리 집 간식인 줄 알았어.','고양이'),T('초대받은 친구한테 그러면 못 써.','고양이의 어머니')],
@@ -124,4 +124,23 @@ ENDINGS.happy.title='아무도 두고 오지 않았다';ENDINGS.happy.text='나�
 ENDINGS.happy.hint='닫힌 문 앞에서 함께 기다려 줄 사람들.';
 MAPS.prom.mission='연회장을 둘러보고 나갈 방법을 찾자';MAPS.ward.mission='내 물건을 찾자';MAPS.backroom.mission='의자 사이에서 길을 찾자';MAPS.pool.mission='물 밖으로 나갈 방법을 찾자';
 // Optional clues remain environmental; failure never prints a solution.
-for(const nodes of Object.values(SCRIPTS))for(const n of nodes)if(n.puzzle)n.help=n.help.replace(/ ○ .*$/,'');
+
+
+ITEMS.wrench=['작은 렌치','육각형 너트를 돌릴 때 쓰는 공구.'];
+MAPS.ward.objects.push(O('toolDrawer',27,16,'desk','책상 서랍',{hide:'toolTaken'}));
+SCRIPTS.toolDrawer=[T('서랍에서 작은 렌치를 찾았다.'),I('wrench'),F('toolTaken')];
+SCRIPTS.missingKeys=[T('열쇠 뭉치가 없다. 어디에 두고 왔는지 찾아봐야겠다.')];
+SCRIPTS.missingPen=[T('글씨를 고치려면 펜이 필요하다.')];
+for(const nodes of Object.values(SCRIPTS))for(const n of nodes)if(n.puzzle){
+ n.positions=['0 / 없음','1 / 중간','2 / 끝'];n.device='dial';
+ if(n.title==='열쇠 맞추기'){n.requires='keys';n.help='열쇠에 홈이 세 개 있다. 왼쪽부터 깊은 홈, 홈 없음, 얕은 홈. 다이얼 눈금 0은 홈 없음, 1은 얕음, 2는 깊음이다.';n.positions=['0 · 홈 없음','1 · 얕은 홈','2 · 깊은 홈']}
+ if(n.title==='욕실 배수'){n.requires='wrench';n.device='valve';n.help='배관 안내판: 입수 잠금 / 배수 완전 개방 / 보조관 절반. 밸브는 닫힘 → 절반 → 열림 순서로 돌아간다.';n.positions=['닫힘','절반','열림']}
+ if(n.title==='의자 더미 치우기'){n.device='lever';n.help='권양기 옆 그림에 첫 의자는 바닥, 둘째는 가운데, 셋째는 맨 위에 걸려 있다. 레버를 의자 높이에 맞추면 고정 장치가 풀린다.';n.positions=['아래','가운데','위']}
+ if(n.title==='발목의 호스 풀기'){n.device='lever';n.help='연결부 각인: 왼쪽은 느슨하게 / 가운데는 완전히 풀기 / 오른쪽은 잠금 유지. 레버 아래부터 잠금, 느슨하게, 풀림이다.';n.positions=['잠금','느슨하게','풀림']}
+ if(n.title==='배수 틈 통과'){n.device='lever';n.help='첫 틈은 몸을 낮춰 통과하고 가운데 홈에서 버틴다. 마지막에는 몸을 펴서 올라가야 한다. 아래는 낮춤, 가운데는 버팀, 위는 펼침.';n.positions=['낮춤','버팀','펼침']}
+}
+// Retrieving a dropped tool remains possible before the pursuit starts.
+MAPS.pool.objects.push(O('poolReturn',5,5,'door','위로 이어진 정비 사다리'));
+SCRIPTS.poolReturn=[R('backroom',44,24)];
+
+SCRIPTS.penLeft=[T('펜을 내려놓았다. 물 위로 떠올랐다.'),C('배수로 쪽에서 소리가 난다.', [['그대로 간다','chaseIntro'],['아직 여기서 살펴본다','leaveOptional']])];
