@@ -71,6 +71,18 @@
       "left": "assets/lemming-left.png",
       "right": "assets/lemming-right.png",
       "up": "assets/lemming-up.png"
+    },
+    "jubin": {
+      "down": "assets/jubin-down.png",
+      "left": "assets/jubin-left.png",
+      "right": "assets/jubin-right.png",
+      "up": "assets/jubin-up.png"
+    },
+    "changwon": {
+      "down": "assets/changwon-down.png",
+      "left": "assets/changwon-left.png",
+      "right": "assets/changwon-right.png",
+      "up": "assets/changwon-up.png"
     }
   },
   "props": {

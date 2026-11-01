@@ -68,7 +68,7 @@ SCRIPTS.intro.splice(3,1,T('나에게는 입을 드레스도 없다.'),T('그래
 SCRIPTS.kim=[T('명찰을 보고 여기 직원이냐고 물었다. 김솔음은 고개를 저었다.'),T('저도 나갈 방법을 찾고 있습니다.','김솔음'),C('같이 출구를 찾아볼까?', [['함께 간다','kimJoin'],['혼자 살펴본다','kimLeave']])];
 SCRIPTS.exitProm.splice(1,0,puzzle('열쇠 맞추기','열쇠 홈은 왼쪽부터 깊음·없음·얕음이다. 각 홈을 눌러 맞추자. ○ 없음 / ◐ 얕음 / ● 깊음',['왼쪽 홈','가운데 홈','오른쪽 홈'],[2,0,1],'● ○ ◐'));
 SCRIPTS.landingDoor.unshift(T('문을 몇 번 더 열어 봤다. 김솔음이 밖에 서 있을 때는 그대로인데 내가 넘으면 다시 홀로 돌아왔다.'),T('위층에서 백의를 입은 남자가 내려왔다.'),T('손을 그렇게 쓰시면 안 됩니다. 브리아노입니다. 손부터 봅시다.','브리아노'),T('그는 뼛조각을 고정하고 테이프를 감았다. 이번에는 주먹을 쥘 수 있었다.'),T('이제 집에 가도 돼요?'),T('오늘은 좀 더 계셔야 합니다. 아까 설명드렸습니다.','브리아노'),T('저 선생님 처음 보는데요.'),T('그가 보여 준 입원 동의서에는 내 서명이 있었다. 날짜를 확인하려고 당겼지만 먼저 가져갔다.'),T('침대에서 쉬세요. 물건은 나중에 돌려드리겠습니다.','브리아노'));
-SCRIPTS.record=[T('침대 발치에 놓인 기록을 펼쳤다. 내 이름 아래에 같은 문장이 여러 번 적혀 있었다. 「집에 보내 주세요.」'),I('record'),F('readRecord'),T('나는 기록을 접어 챙겼다. 가방부터 찾아야겠다.')];
+SCRIPTS.record=[T('침대 발치에 놓인 기록을 펼쳤다. 내 이름 아래에 같은 문장이 여러 번 적혀 있었다. 「집에 보내 주세요.」'),I('record'),F('readRecord'),T('나는 기록을 접어 챙겼다. 뒷장 안쪽에 손톱이 걸렸다. 종이가 한 장 더 있는 것 같았다.')];
 SCRIPTS.ode.unshift(T('오데가 욕조 안에서 수도를 가리켰다. 잠가도 물이 멈추지 않았다. 벽의 배수 밸브를 살폈다.'),puzzle('욕실 배수','안내판: 입수는 잠그고, 배수는 끝까지, 보조관은 절반. ○ 잠금 / ◐ 절반 / ● 완전 개방',['입수','배수','보조관'],[0,2,1],'○ ● ◐'));
 SCRIPTS.chair.unshift(T('의자 밑에서 내 가방을 찾았다. 휴대폰에는 내가 찍은 동영상이 남아 있었다.'),T('문이 안 열리면 아래로 내려가. 의자에 버튼 있어.','영상 속 나'),T('촬영 날짜는 오늘이었다. 나는 가방을 찾은 자리와 화면 속 배경을 번갈아 봤다. 같은 곳이었다.'),puzzle('의자 더미 치우기','낮은 의자부터 빼야 한다. 첫 의자는 바닥, 둘째는 가운데, 셋째는 맨 위에 걸려 있다. ○ 바닥 / ◐ 가운데 / ● 위',['첫 의자','둘째 의자','셋째 의자'],[0,1,2],'○ ◐ ●'));
 SCRIPTS.fall.push(puzzle('발목의 호스 풀기','왼쪽 고리는 느슨하게, 가운데는 완전히 풀고, 오른쪽 잠금은 유지한다. ○ 잠금 / ◐ 느슨하게 / ● 풀기',['왼쪽','가운데','오른쪽'],[1,2,0],'◐ ● ○'));
@@ -79,3 +79,49 @@ SCRIPTS.finalChoice=[T('문밖에서 기다리는 발소리가 들렸다. 나는
 SCRIPTS.normalEnd=[R('lab',8,8),T('그러고 보니…… 왜 웃었더라? 뭐가 웃겼지?'),T('후두부가 웃는군.','브리아노'),E('normal')];
 SCRIPTS.happyReveal=[T('제 몸 보여 주세요. 지금 보고 있는 거 말고요.'),R('lab',8,8),T('유리문 안에 통이 있었다. 선이 여러 가닥 연결되어 있었다. 앞에 붙은 이름표를 읽었다. 내 이름이었다.'),T('나머지는요?'),T('남아 있지 않습니다.','브리아노'),T('나는 다시 통을 봤다. 뭘 더 물어야 할지 몰라 의자를 찾아 앉았다.'),T('문밖에서 김솔음이 안을 들여다봤다. 뒤에는 오데도 있었다. 나는 들어오라고 손짓했다.'),T('설명은 들으셨습니까?','김솔음'),T('아직요.'),T('그가 옆에 의자를 놓고 앉았다. 나는 오데가 들어올 때까지 기다렸다.'),E('happy')];
 ENDINGS.happy.text='서류를 펼쳤다. 모르는 말이 많았다. 김솔음에게 첫 줄부터 같이 읽어 달라고 했다. 오데는 의자를 끌고 와 내 옆에 앉았다.';
+
+// Optional companions: physical clues, prior actions and a single irreversible descent.
+const REQUIRED_PARTY=['kim','ode','hachi','jubin','changwon'];
+ITEMS.earring=['한쪽 귀걸이','거울 아래에서 주웠다. 작은 고리가 달려 있다.'];
+ITEMS.badge=['출입증','기록철 뒷장에 끼워져 있었다. 이름은 김창원.'];
+SCRIPTS.mirror.push(F('mirrorSeen'),T('거울 아래쪽에 무언가 반짝였다. 고개를 숙였지만 식탁보에 가려 잘 보이지 않았다.'));
+SCRIPTS.mirrorAgain=[T('식탁보 끝을 들자 귀걸이 하나가 떨어졌다. 나는 주워서 주머니에 넣었다.'),I('earring')];
+SCRIPTS.recordBack=[T('기록철을 뒤집어 봤다. 뒷장 안쪽에 출입증이 끼워져 있었다. 사진 속 남자는 안경을 쓰고 있었다.'),I('badge')];
+MAPS.ward.objects.find(o=>o.id==='record').hide=null;
+MAPS.prom.objects.push(O('pianoTune',5,18,'mark','피아노 건반'));
+SCRIPTS.pianoTune=[T('악보는 없었다. 덮개 안쪽에 작은 발자국 세 개가 찍혀 있었다. 차례로 건반을 눌렀다.'),F('tunePlayed'),T('어디선가 같은 소리가 한 번 더 들렸다.')];
+MAPS.ward.objects.push(O('wardReturn',4,12,'door','홀로 돌아가는 문'));
+SCRIPTS.wardReturn=[R('landing',20,6)];
+MAPS.landing.objects.push(O('promReturn',4,6,'door','연회장 문'));
+SCRIPTS.promReturn=[R('prom',17,3)];
+MAPS.loop.objects.push(O('researchDoor',5,11,'door','불 꺼진 연구실'),O('bathReturn',3,5,'door','욕실 쪽 문'));
+SCRIPTS.bathReturn=[R('bath',30,9)];
+MAPS.bath.objects.push(O('wardBack',4,7,'door','병동 쪽 문'));
+SCRIPTS.wardBack=[R('ward',24,12)];
+SCRIPTS.researchDoor=[R('research',4,10),T('책상 뒤에 남자가 앉아 있었다. 안경을 고쳐 쓰더니 나를 봤다.')];
+MAPS.research={name:'불 꺼진 연구실',theme:'lab',w:24,h:18,mission:'책상 뒤에서 인기척이 난다',objects:[O('changwon',16,8,'changwon','안경을 쓴 남자',{hide:'changwonJoined'}),O('researchReturn',3,12,'door','복도로')],props:[['desk',16,6],['monitor',19,5],['bed',7,5],['plant',20,14]]};
+SCRIPTS.researchReturn=[R('loop',6,11)];
+SCRIPTS.changwonWait=[T('김창원이라고 합니다. 출입증을 잃어버려서 여기 갇혔습니다.','김창원'),T('문은 열려 있는데요?'),T('제가 나가면 경보가 울립니다.','김창원')];
+SCRIPTS.changwonOffer=[T('출입증의 사진과 얼굴을 번갈아 봤다. 남자가 손을 내밀었다.'),T('그거 제 건데요.','김창원'),C('출입증을 어떻게 할까?', [['돌려주고 같이 간다','changwonJoin'],['일단 보관한다','leaveOptional']])];
+SCRIPTS.changwonJoin=[{op:'remove',id:'badge'},P('changwon'),F('changwonJoined'),T('그가 문을 넘었다. 경보는 울리지 않았다.')];
+MAPS.backroom.objects.push(O('jubin',15,7,'jubin','벽 옆의 남자',{hide:'jubinJoined'}),O('hachiRescue',5,8,'hachi','의자 뒤의 하치와레',{hide:'hachiJoined'}),O('backroomReturn',3,4,'door','벽지 틈'));
+SCRIPTS.backroomReturn=[R('loop',17,11)];
+SCRIPTS.jubinWait=[T('남자가 한쪽 귀를 만지며 카펫을 살피고 있었다.'),T('뭐 잃어버렸어요?'),T('귀걸이요. 한쪽만 없어서.','이주빈'),T('그는 이주빈이라고 이름을 알려 주고 다시 바닥을 살폈다.')];
+SCRIPTS.jubinOffer=[T('주머니에서 귀걸이를 꺼냈다. 남자가 고개를 들었다.'),T('어디서 찾았어요?','이주빈'),C('귀걸이를 어떻게 할까?', [['건네주고 같이 나가자고 한다','jubinJoin'],['나중에 돌려준다','leaveOptional']])];
+SCRIPTS.jubinJoin=[{op:'remove',id:'earring'},P('jubin'),F('jubinJoined'),T('이주빈이 귀걸이를 끼웠다. 내가 걸음을 옮기자 뒤따라왔다.')];
+SCRIPTS.leaveOptional=[T('나는 물건을 주머니에 넣었다.')];
+SCRIPTS.hachiWait=[T('하치와레가 의자 뒤에 숨었다. 가까이 가면 더 안쪽으로 들어갔다. 앞발로 건반을 누르는 시늉을 하고 있었다.')];
+SCRIPTS.hachiOffer=[T('연회장의 피아노 소리를 흉내 냈다. 하치와레가 의자 뒤에서 나왔다.'),C('하치와레가 내 발치를 맴돈다.',[['같이 가자고 한다','hachiJoin'],['먼저 길을 살핀다','leaveOptional']])];
+SCRIPTS.hachiJoin=[P('hachi'),F('hachiJoined'),T('하치와레가 내 소매를 잡았다.')];
+for(const id of ['exitProm','bathExit'])SCRIPTS[id]=SCRIPTS[id].filter(n=>!(n.op==='party'&&!n.join&&['kim','ode'].includes(n.id)));
+SCRIPTS.chairWait=[T('버튼 옆에 아래로 향하는 화살표가 그려져 있었다. 돌아올 계단은 보이지 않았다.')];
+SCRIPTS.finalDoor=[J('finalChoice')];
+SCRIPTS.finalChoice=[T('복도에서 발소리가 들렸다. 나는 문 앞에 서서 뒤를 돌아봤다.'),C('어떻게 할까?', [['휴대폰을 내려놓고 출근 준비를 한다','normalEnd'],['문을 열고 모두 함께 나간다','escapeCheck']])];
+SCRIPTS.escapeCheck=[{op:'allParty',yes:'happyReveal',no:'incompleteEscape'}];
+SCRIPTS.incompleteEscape=[T('문을 열고 나왔다. 문이 닫힌 뒤에도 한동안 손잡이를 놓지 못했다.'),T('안쪽에서 누군가 의자를 끄는 소리가 났다. 다시 열려고 했지만 손잡이는 돌아가지 않았다.'),E('normal')];
+SCRIPTS.happyReveal=[R('lab',8,10),T('관찰실의 문은 안에서 잠겨 있었다. 김창원이 출입증을 대자 잠금이 풀렸다.'),T('이주빈이 문을 잡았다. 오데와 하치와레가 먼저 나갔고 김솔음이 내 옆에서 기다렸다.'),T('통에 붙은 이름표가 눈에 들어왔다. 내 이름이었다.'),T('나머지는요?'),T('남아 있지 않습니다.','브리아노'),T('나는 통을 다시 봤다. 김솔음이 내 팔을 받쳤다.'),T('지금 설명 들으실 겁니까?','김창원'),T('아뇨. 나가서요.'),T('문을 넘기 전에 한 명씩 세었다. 이번에는 아무도 남아 있지 않았다.'),E('happy')];
+ENDINGS.happy.title='아무도 두고 오지 않았다';ENDINGS.happy.text='나는 문을 열어 둔 채 기다렸다. 마지막으로 김창원이 나왔다. 다 왔다는 말을 듣고서야 손잡이를 놓았다. 몸이 돌아온 것은 아니었다. 그래도 이번에는 모두 함께 나왔다.';
+ENDINGS.happy.hint='닫힌 문 앞에서 함께 기다려 줄 사람들.';
+MAPS.prom.mission='연회장을 둘러보고 나갈 방법을 찾자';MAPS.ward.mission='내 물건을 찾자';MAPS.backroom.mission='의자 사이에서 길을 찾자';MAPS.pool.mission='물 밖으로 나갈 방법을 찾자';
+// Optional clues remain environmental; failure never prints a solution.
+for(const nodes of Object.values(SCRIPTS))for(const n of nodes)if(n.puzzle)n.help=n.help.replace(/ ○ .*$/,'');
