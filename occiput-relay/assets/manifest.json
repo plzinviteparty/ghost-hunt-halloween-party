@@ -1,10 +1,10 @@
 {
   "sprites": {
     "kim": {
-      "down": "assets/kim-down.png",
-      "left": "assets/kim-left.png",
-      "right": "assets/kim-right.png",
-      "up": "assets/kim-up.png"
+      "down": "assets/kim-uniform-down.png",
+      "left": "assets/kim-uniform-left.png",
+      "right": "assets/kim-uniform-right.png",
+      "up": "assets/kim-uniform-up.png"
     },
     "ode": {
       "down": "assets/ode-down.png",
@@ -37,16 +37,16 @@
       "up": "assets/chiikawa-up.png"
     },
     "player": {
-      "down": "assets/player-down.png",
-      "left": "assets/player-left.png",
-      "right": "assets/player-right.png",
-      "up": "assets/player-up.png"
+      "down": "assets/player-uniform-down.png",
+      "left": "assets/player-uniform-left.png",
+      "right": "assets/player-uniform-right.png",
+      "up": "assets/player-uniform-up.png"
     },
     "man": {
-      "down": "assets/man-down.png",
-      "left": "assets/man-left.png",
-      "right": "assets/man-right.png",
-      "up": "assets/man-up.png"
+      "down": "assets/man-uniform-down.png",
+      "left": "assets/man-uniform-left.png",
+      "right": "assets/man-uniform-right.png",
+      "up": "assets/man-uniform-up.png"
     },
     "alien": {
       "down": "assets/alien-down.png",
@@ -61,10 +61,10 @@
       "up": "assets/cat-up.png"
     },
     "briano": {
-      "down": "assets/briano-down.png",
-      "left": "assets/briano-left.png",
-      "right": "assets/briano-right.png",
-      "up": "assets/briano-up.png"
+      "down": "assets/briano-uniform-down.png",
+      "left": "assets/briano-uniform-left.png",
+      "right": "assets/briano-uniform-right.png",
+      "up": "assets/briano-uniform-up.png"
     },
     "lemming": {
       "down": "assets/lemming-down.png",
@@ -73,16 +73,16 @@
       "up": "assets/lemming-up.png"
     },
     "jubin": {
-      "down": "assets/jubin-down.png",
-      "left": "assets/jubin-left.png",
-      "right": "assets/jubin-right.png",
-      "up": "assets/jubin-up.png"
+      "down": "assets/jubin-uniform-down.png",
+      "left": "assets/jubin-uniform-left.png",
+      "right": "assets/jubin-uniform-right.png",
+      "up": "assets/jubin-uniform-up.png"
     },
     "changwon": {
-      "down": "assets/changwon-down.png",
-      "left": "assets/changwon-left.png",
-      "right": "assets/changwon-right.png",
-      "up": "assets/changwon-up.png"
+      "down": "assets/changwon-uniform-down.png",
+      "left": "assets/changwon-uniform-left.png",
+      "right": "assets/changwon-uniform-right.png",
+      "up": "assets/changwon-uniform-up.png"
     }
   },
   "props": {
