@@ -152,3 +152,6 @@ SCRIPTS.quietConsole=[T('덮개가 나사로 고정되어 있었다. 옆에 붙�
 SCRIPTS.nasolOffer=[T('진나솔이 제어함의 눈금을 확인했다.'),T('환기는 살려 놨네요.','진나솔'),T('아까 끄지 말라고 했잖아요.'),T('말해도 못 알아듣는 사람이 많아서요.','진나솔'),C('진나솔이 벽에서 몸을 뗐다.', [['같이 나가자고 한다','nasolJoin'],['먼저 가겠다고 한다','leaveOptional']])];
 SCRIPTS.nasolJoin=[P('nasol'),F('nasolJoined'),T('진나솔이 내 뒤로 왔다.'),T('앞장서요. 길 막히면 제가 볼 테니까.','진나솔')];
 SCRIPTS.happyReveal.splice(2,0,T('문 앞에서 멈추자 진나솔이 내 어깨를 짚었다.'),T('나가서 봐요. 뒤에 아직 사람 있어요.','진나솔'));
+
+MAPS.ward.mission='가방을 보관한 곳을 찾아보자 · 커튼 뒤에서는 몸을 숨길 수 있다';
+SCRIPTS.landingDoor.push(T('침대 사이로 간호사들이 돌아다녔다. 커튼 뒤에서 지나가기를 기다릴 수 있을 것 같다.'));
