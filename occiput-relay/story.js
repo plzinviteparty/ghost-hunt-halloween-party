@@ -182,3 +182,14 @@ for(let i=0;i<5;i++)SCRIPTS['altarHead'+i]=[{statueTrial:true,preselect:i}];
 SCRIPTS.altarExit=[R('loop',6,10)];
 SCRIPTS.altarEmpty=[T('받침대에 돌가루만 남아 있었다.')];
 ENDINGS.altar={type:'BAD END 04',title:'여섯 번째 머리',text:'천장에서 돌가루가 떨어졌다.\n문으로 달려가기도 전에 돌판이 내려앉았다.\n\n먼지가 가라앉자 받침대 하나가 더 생겼다.\n그 위에서 내가 입을 열었다.\n“나는 거짓말을 안 해.”',hint:'제단실의 머리 조각상 중 참말을 하는 것은 하나뿐이다.'};
+
+// Stable completion IDs survive UI changes and save/load cycles.
+for(const nodes of Object.values(SCRIPTS))for(const n of nodes)if(n.puzzle)n.puzzleId=({
+ '열쇠 맞추기':'prom-key','욕실 배수':'bath-drain','의자 더미 치우기':'chair-path',
+ '발목의 호스 풀기':'ankle-hose','배수 틈 통과':'drain-passage','병동 제어함':'ward-console'
+})[n.title];
+SCRIPTS.exitPromOpen=[R('landing',4,6)];
+SCRIPTS.wardLeverOpen=[R('bath',4,7)];
+SCRIPTS.quietConsoleDone=[T('제어함은 맞춰 둔 눈금을 유지하고 있었다.')];
+SCRIPTS.chairCleared=SCRIPTS.chair.filter(n=>n.choice);
+MAPS.ward.mission='병동을 둘러보고 나갈 길을 찾자 · 커튼 뒤에서는 몸을 숨길 수 있다';
