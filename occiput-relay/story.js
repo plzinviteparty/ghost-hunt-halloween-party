@@ -161,3 +161,24 @@ for(const nodes of Object.values(SCRIPTS))for(const n of nodes)if(n.puzzle){
  if(n.title==='의자 더미 치우기'){n.device='chairs';n.help='붉은 의자를 오른쪽 출구까지 밀어 길을 만들자. 의자를 고른 뒤 화살표로 한 칸씩 민다. 긴 의자는 놓인 방향으로만 움직이며 다른 의자를 통과할 수 없다.'}
  if(n.title==='발목의 호스 풀기'){n.device='pipes';n.help='관 조각을 눌러 시계 방향으로 돌린다. 왼쪽 압력관에서 오른쪽 배출구까지 끊김 없이 연결한 뒤 압력을 빼자. 청록색 관은 입구에 연결된 부분이다.'}
 }
+
+// An optional altar room branches off the looping corridor.
+const STATUE_CLAIMS=[
+ {name:'이를 드러낸 머리',text:'진실을 말하는 건 1번 아니면 2번이다.',truth:[0,1]},
+ {name:'눈을 감은 머리',text:'진실을 말하는 건 4번 아니면 5번이다.',truth:[3,4]},
+ {name:'금이 간 머리',text:'2번은 거짓말을 한다.',truth:[0,2,3,4]},
+ {name:'눈을 부릅뜬 머리',text:'진실을 말하는 조각상의 번호는 짝수다.',truth:[1,3]},
+ {name:'입을 벌린 머리',text:'진실을 말하는 건 나다.',truth:[4]}
+];
+const ALTAR_HEADS=[[5,8],[9,8],[13,8],[17,8],[21,8]];
+MAPS.loop.objects.push(O('altarDoor',6,11,'door','제단실로 내려가는 문'));
+MAPS.altar={name:'거짓말쟁이들의 제단실',theme:'altar',w:28,h:30,mission:'받침대의 비문과 다섯 머리 조각상을 조사하자',objects:[
+ O('altarTrial',13,10,'altarTable','받침대의 비문'),O('altarExit',13,27,'door','복도로 돌아가는 출입문'),
+ ...ALTAR_HEADS.map(([x,y],i)=>O('altarHead'+i,x,y,'stoneHead'+i,(i+1)+'번 · '+STATUE_CLAIMS[i].name,{hide:'altarAwake'}))
+],props:[...ALTAR_HEADS.map(([x,y])=>['altarPlinth',x,y]),['altarPillar',8,14],['altarPillar',18,14],['altarPillar',12,19],['altarPillar',22,22],['altarPillar',5,23],['altarCandle',3,5],['altarCandle',24,5],['altarCandle',3,16],['altarCandle',24,16],['altarCandle',9,26],['altarCandle',17,26]]};
+SCRIPTS.altarDoor=[R('altar',13,25)];
+SCRIPTS.altarTrial=[{statueTrial:true}];
+for(let i=0;i<5;i++)SCRIPTS['altarHead'+i]=[{statueTrial:true,preselect:i}];
+SCRIPTS.altarExit=[R('loop',6,10)];
+SCRIPTS.altarEmpty=[T('받침대에 돌가루만 남아 있었다.')];
+ENDINGS.altar={type:'BAD END 04',title:'여섯 번째 머리',text:'천장에서 돌가루가 떨어졌다.\n문으로 달려가기도 전에 돌판이 내려앉았다.\n\n먼지가 가라앉자 받침대 하나가 더 생겼다.\n그 위에서 내가 입을 열었다.\n“나는 거짓말을 안 해.”',hint:'제단실의 머리 조각상 중 참말을 하는 것은 하나뿐이다.'};
