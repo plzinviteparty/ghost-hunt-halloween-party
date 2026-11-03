@@ -138,6 +138,7 @@ function renderPuzzle(n){
  if(n.requires&&!s.inventory.includes(n.requires)){paragraph($('#choices'),'장치에 '+ITEMS[n.requires][0]+'을 사용할 수 있을 것 같다.');button($('#choices'),'물러난다',leavePuzzle);return}
  const state=s.puzzleState||(s.puzzleState={id:s.script+':'+s.step,values:[0,0,0],tries:0});
  if(state.id!==s.script+':'+s.step){s.puzzleState=null;return renderPuzzle(n)}
+ if(n.device==='chairs'||n.device==='pipes')return renderSpatialPuzzle(n,state);
  const panel=document.createElement('div');panel.className='mechanism '+(n.device||'dial');$('#choices').append(panel);
  for(let i=0;i<n.labels.length;i++){
  const unit=document.createElement('div');unit.className='mechanismUnit';panel.append(unit);paragraph(unit,n.labels[i]);
@@ -145,7 +146,7 @@ function renderPuzzle(n){
  b.innerHTML=n.device==='lever'?'<span class="leverTrack"></span><span class="leverHandle"></span>':n.device==='valve'?'<span class="valveWheel">✣</span>':'<span class="dialPointer">▲</span><span class="dialMarks">0　1　2</span>';
  b.onclick=()=>{state.values[i]=(state.values[i]+1)%3;sound(180+state.values[i]*70,.06);renderPuzzle(n);autoSave()};unit.append(b);paragraph(unit,n.positions[state.values[i]],'positionLabel');
  }
- button($('#choices'),'장치 작동',()=>{if(n.answer.every((v,i)=>state.values[i]===v)){s.puzzleState=null;s.step++;sound(660,.15);flush();autoSave()}else{state.tries++;$('#words').textContent=n.help+'\n맞지 않는다. 다시 확인해 보자.';sound(110,.12);autoSave()}});
+ button($('#choices'),'장치 작동',()=>{if(n.answer.every((v,i)=>state.values[i]===v)){completePuzzle()}else{state.tries++;$('#words').textContent=n.help+'\n맞지 않는다. 다시 확인해 보자.';sound(110,.12);autoSave()}});
  button($('#choices'),'물러나기',leavePuzzle);updateUI();
 }
 function leavePuzzle(){s.script=null;s.step=0;idle();autoSave()}
@@ -172,3 +173,61 @@ function tickWardPatrol(dt){if(s.room!=='ward'||s.flags.melted||paused||ended||!
 }
 function drawWardVision(){if(s.room!=='ward'||s.flags.melted)return;for(const g of s.wardPatrol.guards){for(let y=Math.max(3,Math.floor(g.y-5));y<=Math.min(21,g.y+5);y++)for(let x=Math.max(1,Math.floor(g.x-5));x<=Math.min(30,g.x+5);x++)if(!collision('ward').has(x+','+y)&&wardSees(g,x,y))rect(x*TS-camera.x,y*TS-camera.y,TS,TS,g.mode==='chase'?'#e559492e':'#ddc78417');if(g.mode!=='patrol')txt(g.mode==='chase'?'!':'?',g.x*TS+16-camera.x,g.y*TS-60-camera.y,g.mode==='chase'?'#f5a18c':'#ecd3a3',20)}}
 function drawWardCurtains(){if(s.room!=='ward')return;for(const [a,b] of WARD_HIDES){const x=a*TS-camera.x,y=b*TS-camera.y;rect(x-3,y-63,38,3,'#a2b1b0');for(let i=0;i<5;i++)rect(x+i*7,y-60,6,54,i%2?'#526d79':'#718d96');rect(x,y-6,34,3,'#a6b8b6');if(wardHidden(a,b)&&Math.hypot(s.x-a,s.y-b)<.8)txt('은신',x+16,y-70,'#b7d8c4',10)}}
+
+function completePuzzle(){resetJoystick();s.puzzleState=null;s.step++;sound(660,.15);flush();autoSave()}
+function chairStart(){return [
+ {x:0,y:2,len:2,axis:'h'}, {x:2,y:1,len:2,axis:'v'},
+ {x:1,y:0,len:2,axis:'h'}, {x:3,y:0,len:2,axis:'v'},
+ {x:3,y:3,len:2,axis:'h'}, {x:1,y:4,len:3,axis:'h'},
+ {x:0,y:0,len:2,axis:'v'}
+]}
+function shiftChair(pieces,id,delta){
+ const p=pieces[id];if(!p||![-1,1].includes(delta))return false;
+ const x=p.x+(p.axis==='h'?delta:0),y=p.y+(p.axis==='v'?delta:0);
+ if(x<0||y<0||x+(p.axis==='h'?p.len:1)>5||y+(p.axis==='v'?p.len:1)>5)return false;
+ const cells=new Set();pieces.forEach((q,i)=>{if(i!==id)for(let j=0;j<q.len;j++)cells.add((q.x+(q.axis==='h'?j:0))+','+(q.y+(q.axis==='v'?j:0)))});
+ for(let j=0;j<p.len;j++)if(cells.has((x+(p.axis==='h'?j:0))+','+(y+(p.axis==='v'?j:0))))return false;
+ p.x=x;p.y=y;return true;
+}
+function pipePorts(i,rotations){const base=[[1,2],[2,3],[],[0,3],[0,2],[1,2],[],[0,1],[0,3]][i];return base.map(d=>(d+rotations[i])%4)}
+function tracePipes(rotations){
+ let i=3,entry=3;const reached=[],seen=new Set(),dx=[0,1,0,-1],dy=[-1,0,1,0];
+ while(!seen.has(i)){
+  const ports=pipePorts(i,rotations);if(!ports.includes(entry))break;
+  seen.add(i);reached.push(i);const exit=ports.find(d=>d!==entry);
+  if(i===5&&exit===1)return {solved:true,reached};
+  const x=i%3+dx[exit],y=Math.floor(i/3)+dy[exit];if(x<0||x>2||y<0||y>2)break;
+  i=y*3+x;entry=(exit+2)%4;
+ }
+ return {solved:false,reached};
+}
+function spatialState(n,state){
+ if(state.kind!==n.device){state.kind=n.device;state.moves=0;state.selected=0;state.chairs=chairStart();state.rotations=[1,2,0,2,1,3,0,2,1]}
+ return state;
+}
+function renderSpatialPuzzle(n,raw){
+ const state=spatialState(n,raw),root=$('#choices');
+ const wrap=document.createElement('div');wrap.className='spatialPuzzle';root.append(wrap);
+ const top=document.createElement('div');top.className='puzzleTop';wrap.append(top);
+ paragraph(top,n.device==='chairs'?'의자 배치도 · 오른쪽이 출구 →':'입구 → 압력관 연결 → 배출구');
+ paragraph(top,'조작 '+state.moves+'회','puzzleCount');
+ if(n.device==='chairs'){
+  const board=document.createElement('div');board.className='chairBoard';wrap.append(board);
+  const exit=document.createElement('span');exit.className='chairExit';exit.textContent='출구 ›';board.append(exit);
+  state.chairs.forEach((p,i)=>{const b=button(board,'',()=>{state.selected=i;renderPuzzle(n);autoSave()});b.className='chairPiece '+(p.axis==='h'?'horizontal':'vertical')+(i===0?' target':'')+(state.selected===i?' selected':'');b.style.gridColumn=(p.x+1)+' / span '+(p.axis==='h'?p.len:1);b.style.gridRow=(p.y+1)+' / span '+(p.axis==='v'?p.len:1);b.setAttribute?.('aria-label',(i===0?'붉은 의자':i+'번 의자')+' 선택');b.innerHTML='<span class="chairGlyph" aria-hidden="true"></span><span>'+(i===0?'탈출':i)+'</span>'});
+  const controls=row(wrap),piece=state.chairs[state.selected];
+  for(const delta of [-1,1]){const copy=clone(state.chairs),valid=shiftChair(copy,state.selected,delta);const label=piece.axis==='h'?(delta<0?'← 왼쪽':'오른쪽 →'):(delta<0?'↑ 위로':'아래로 ↓');const b=button(controls,label,()=>{if(!shiftChair(state.chairs,state.selected,delta))return;state.moves++;sound(190,.06);renderPuzzle(n);autoSave()});b.disabled=!valid}
+  const solved=state.chairs[0].x===3;const done=button(controls,'의자 밖으로 밀기 →',()=>{if(state.chairs[0].x===3)completePuzzle()},'primary');done.disabled=!solved;
+  paragraph(wrap,solved?'출구 앞이 비었다. 붉은 의자를 밖으로 밀 수 있다.':(state.selected===0?'붉은 의자':state.selected+'번 의자')+' 선택 중 · 움직일 수 있는 방향이 밝게 표시된다.','puzzleFeedback');
+ }else{
+  const flow=tracePipes(state.rotations),board=document.createElement('div');board.className='pipeBoard';wrap.append(board);
+  for(let i=0;i<9;i++){
+   const ports=pipePorts(i,state.rotations),b=button(board,'',()=>{if(!ports.length)return;state.rotations[i]=(state.rotations[i]+1)%4;state.moves++;sound(210,.05);renderPuzzle(n);autoSave()});b.className='pipeTile'+(flow.reached.includes(i)?' flowing':'');b.disabled=!ports.length;b.setAttribute?.('aria-label',(Math.floor(i/3)+1)+'행 '+(i%3+1)+'열 관 시계 방향 회전');
+   const points=[[50,0],[100,50],[50,100],[0,50]];
+   b.innerHTML=ports.length?'<svg viewBox="0 0 100 100" aria-hidden="true"><path class="pipeRim" d="M '+points[ports[0]].join(' ')+' L 50 50 L '+points[ports[1]].join(' ')+'"/><path class="pipeCore" d="M '+points[ports[0]].join(' ')+' L 50 50 L '+points[ports[1]].join(' ')+'"/><circle cx="50" cy="50" r="6"/></svg>':'<span aria-hidden="true">×</span>';
+  }
+  paragraph(wrap,flow.solved?'배출구까지 연결됐다. 압력을 뺄 수 있다.':'왼쪽 가운데가 입구 · 오른쪽 가운데가 배출구','puzzleFeedback');
+  const done=button(row(wrap),'압력 빼기',()=>{if(tracePipes(state.rotations).solved)completePuzzle()},'primary');done.disabled=!flow.solved;
+ }
+ const actions=row(wrap);button(actions,'배치 처음으로',()=>{state.kind=null;renderPuzzle(n);autoSave()});button(actions,'물러나기',leavePuzzle);updateUI();
+}

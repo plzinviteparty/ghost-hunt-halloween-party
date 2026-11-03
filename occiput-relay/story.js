@@ -155,3 +155,9 @@ SCRIPTS.happyReveal.splice(2,0,T('문 앞에서 멈추자 진나솔이 내 어�
 
 MAPS.ward.mission='가방을 보관한 곳을 찾아보자 · 커튼 뒤에서는 몸을 숨길 수 있다';
 SCRIPTS.landingDoor.push(T('침대 사이로 간호사들이 돌아다녔다. 커튼 뒤에서 지나가기를 기다릴 수 있을 것 같다.'));
+
+// Spatial puzzles replace only the device UI; scene prose and outcomes stay intact.
+for(const nodes of Object.values(SCRIPTS))for(const n of nodes)if(n.puzzle){
+ if(n.title==='의자 더미 치우기'){n.device='chairs';n.help='붉은 의자를 오른쪽 출구까지 밀어 길을 만들자. 의자를 고른 뒤 화살표로 한 칸씩 민다. 긴 의자는 놓인 방향으로만 움직이며 다른 의자를 통과할 수 없다.'}
+ if(n.title==='발목의 호스 풀기'){n.device='pipes';n.help='관 조각을 눌러 시계 방향으로 돌린다. 왼쪽 압력관에서 오른쪽 배출구까지 끊김 없이 연결한 뒤 압력을 빼자. 청록색 관은 입구에 연결된 부분이다.'}
+}
