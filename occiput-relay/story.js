@@ -193,3 +193,12 @@ SCRIPTS.wardLeverOpen=[R('bath',4,7)];
 SCRIPTS.quietConsoleDone=[T('제어함은 맞춰 둔 눈금을 유지하고 있었다.')];
 SCRIPTS.chairCleared=SCRIPTS.chair.filter(n=>n.choice);
 MAPS.ward.mission='병동을 둘러보고 나갈 길을 찾자 · 커튼 뒤에서는 몸을 숨길 수 있다';
+
+// Room transfers require an explicit choice, separate from advancing dialogue.
+const DOOR_ACTIONS={exitProm:'나가기',landingDoor:'들어가기',wardReturn:'나가기',promReturn:'들어가기',bathExit:'나가기',wardBack:'들어가기',bathReturn:'들어가기',loopWrong:'나가기',researchDoor:'들어가기',researchReturn:'나가기',backroom:'들어가기',backroomReturn:'나가기',poolReturn:'올라가기',wake:'들어가기',altarDoor:'들어가기',altarExit:'나가기'};
+SCRIPTS.doorStay=[];
+for(const [id,verb] of Object.entries(DOOR_ACTIONS)){
+ const object=Object.values(MAPS).flatMap(m=>m.objects).find(o=>o.id===id);
+ SCRIPTS['doorAsk_'+id]=[{choice:object.label,doorConfirm:true,options:[{text:verb,to:'doorGo_'+id},{text:'머무르기',to:'doorStay'}]}];
+ SCRIPTS['doorGo_'+id]=[{op:'enterDoor',id}];
+}
