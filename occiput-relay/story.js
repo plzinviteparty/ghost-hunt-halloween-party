@@ -202,3 +202,5 @@ for(const [id,verb] of Object.entries(DOOR_ACTIONS)){
  SCRIPTS['doorAsk_'+id]=[{choice:object.label,doorConfirm:true,options:[{text:verb,to:'doorGo_'+id},{text:'머무르기',to:'doorStay'}]}];
  SCRIPTS['doorGo_'+id]=[{op:'enterDoor',id}];
 }
+
+SCRIPTS.researchDoorKnown=[R('research',4,10)];
