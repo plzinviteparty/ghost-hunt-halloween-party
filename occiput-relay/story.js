@@ -204,3 +204,58 @@ for(const [id,verb] of Object.entries(DOOR_ACTIONS)){
 }
 
 SCRIPTS.researchDoorKnown=[R('research',4,10)];
+
+// Ordinary furnishings have short, conclusive descriptions rather than quest hints.
+const SCENERY_TEXT={
+ table:['식탁',['먼지가 쌓인 식탁이다. 위에는 아무것도 없다.','식탁보에 오래된 얼룩이 남아 있다. 특별한 것은 없어 보인다.','표면에 손자국이 많이 남아 있다. 더 살펴볼 것은 없다.']],
+ desk:['책상',['모서리가 닳은 책상이다. 특별한 것은 없어 보인다.','책상 위를 훑어봤다. 먼지만 묻어 나왔다.','군데군데 손자국이 남은 책상이다. 다른 물건은 없다.']],
+ chair:['의자',['낡은 의자다. 좌판에 먼지가 쌓여 있다.','등받이에 긁힌 자국이 많다. 특별한 것은 없어 보인다.','다리 하나가 조금 짧은 의자다. 특별한 것은 없어 보인다.']],
+ fallenChair:['넘어진 의자',['넘어진 의자다. 밑에는 아무것도 없다.']],
+ chairPile:['의자 더미',['의자가 어지럽게 포개져 있다. 사이에 끼인 물건은 없다.','먼지 쌓인 의자 더미다. 특별한 것은 없어 보인다.']],
+ bed:['침대',['구겨진 이불이 놓인 침대다. 베개 밑은 비어 있다.','빈 침대다. 시트에 오래된 얼룩이 남아 있다.']],
+ plant:['화분',['흙이 바싹 마른 화분이다. 떨어진 잎 몇 장이 전부다.','먼지 쌓인 화분이다. 특별한 것은 없어 보인다.']],
+ monitor:['모니터',['화면에 손자국이 많이 남아 있다. 건드릴 만한 버튼은 없다.','오래된 모니터다. 특별한 것은 없어 보인다.']],
+ mirror:['거울',['얼룩진 거울이다. 테두리에는 먼지가 끼어 있다.']],
+ clock:['벽시계',['오래된 벽시계다. 겉에서 더 확인할 것은 없다.']],
+ piano:['피아노',['먼지 쌓인 피아노다. 건반 몇 개가 누렇게 변했다.']],
+ stage:['무대',['구두 자국이 많이 남은 무대다. 바닥에는 아무것도 없다.']],
+ sign:['표지판',['칠이 벗겨진 표지판이다. 뒤쪽에는 아무것도 없다.']],
+ bath:['욕조',['물때가 남은 욕조다. 안에는 아무것도 없다.']],
+ bubble:['물풍선',['커다란 물풍선이다. 표면이 미끄러워 잡을 수 없다.']],
+ pipe:['배관',['차가운 배관이다. 이쪽에는 돌릴 손잡이가 없다.']],
+ fireplace:['벽난로',['벽난로 안에는 식은 재만 남아 있다.']],
+ ufo:['추락한 기체',['외장이 심하게 찌그러진 기체다. 이쪽에는 꺼낼 만한 것이 없다.']],
+ tank:['보존 장치',['유리 표면에 손자국이 남아 있다. 겉에서 더 확인할 것은 없다.']],
+ altarPlinth:['조각상 받침대',['표면이 닳은 돌 받침대다. 옆면에는 아무것도 없다.']],
+ altarPillar:['돌기둥',['오래된 돌기둥이다. 홈마다 먼지가 끼어 있다.']],
+ altarCandle:['촛대',['촛농이 굳어붙은 촛대다. 밑에는 아무것도 없다.']]
+};
+const SCENERY={};
+for(const [room,map] of Object.entries(MAPS)){
+ SCENERY[room]=map.props.flatMap(([kind,x,y],i)=>{
+  const entry=SCENERY_TEXT[kind];if(!entry)return [];
+  const [label,texts]=entry,id='scenery_'+room+'_'+i;
+  SCRIPTS[id]=[T(texts[(x+y+i)%texts.length])];
+  const rx=['table','stage','bed','desk','ufo','piano','bath','tank'].includes(kind)?(['stage','ufo'].includes(kind)?2:1):kind==='chairPile'?1:0,ry=['bed','ufo'].includes(kind)?1:0;
+  return [{id,x,y,kind,label,scenery:true,rx,ry,proxy:room==='prom'&&kind==='piano'?'pianoTune':room==='ward'&&kind==='desk'&&x===27?'toolDrawer':null}];
+ });
+}
+const SPENT_TEXT={
+ bone:['뼛조각이 있던 자리','탁자 아래는 비어 있다. 남은 뼛조각은 없다.'],
+ toolDrawer:['빈 서랍','이미 열어 본 서랍이다. 안에는 아무것도 없다.'],
+ pen:['펜이 떠 있던 자리','물 위에는 더 이상 떠다니는 물건이 없다.'],
+ cat:['열쇠를 찾았던 자리','열쇠를 챙긴 자리다. 다른 물건은 없다.'],
+ kim:['남자가 있던 자리','명찰을 찬 남자가 서 있던 자리다. 지금은 비어 있다.'],
+ ode:['오데가 있던 자리','오데가 있던 자리다. 남겨진 물건은 없다.'],
+ jubin:['이주빈이 있던 자리','이주빈이 서 있던 자리다. 남겨진 물건은 없다.'],
+ changwon:['책상 옆 빈자리','김창원이 앉아 있던 자리다. 지금은 비어 있다.'],
+ nasol:['벽 옆 빈자리','진나솔이 기대 있던 자리다. 남겨진 물건은 없다.'],
+ hachiRescue:['의자 뒤 빈자리','하치와레가 숨어 있던 자리다. 지금은 비어 있다.']
+};
+for(const [id,[label,text]] of Object.entries(SPENT_TEXT))SCRIPTS['spent_'+id]=[T(text)];
+SCRIPTS.mirrorAgain.push(F('earringTaken'));
+SCRIPTS.recordBack.push(F('badgeTaken'));
+SCRIPTS.mirrorEmpty=[T('거울 아래를 살펴봤다. 더 이상 떨어진 물건은 없다.')];
+SCRIPTS.recordChecked=[T('이미 살펴본 기록철이다. 사이에 끼워진 물건은 없다.')];
+SCRIPTS.pianoKnown=[T('이미 눌러 본 피아노 건반이다. 더 살펴볼 것은 없다.')];
+SCRIPTS.chalkMarked=[T('분필로 그린 화살표가 남아 있다. 이미 표시한 벽이다.')];
